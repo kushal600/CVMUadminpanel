@@ -1,8 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Login from "./login";
-import Home from "./home";
-import ForgetEmail from "./forgetEmail";
+import AdminHome from "./adminHome";
+import ForgetAdminPassword from "./forgetAdminPassword";
+import FacultyHome from "./facultyHome";
+import ForgetFacultyPassword from "./forgetFacultyPassword";
+import RegisterFaculty from "./registerFaculty";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -11,8 +14,23 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Login />}></Route>
-          <Route exact path="/home" element={<Home />}></Route>
-          <Route exact path="/forgetEmail" element={<ForgetEmail />}></Route>
+          <Route exact path="/adminhome" element={<AdminHome />}></Route>
+          <Route
+            exact
+            path="/forgetadminpassword"
+            element={<ForgetAdminPassword />}
+          ></Route>
+          <Route exact path="/facultyhome" element={<FacultyHome />}></Route>
+          <Route
+            exact
+            path="/registerfaculty"
+            element={<RegisterFaculty />}
+          ></Route>
+          <Route
+            exact
+            path="/forgetfacultypassword"
+            element={<ForgetFacultyPassword />}
+          ></Route>
         </Routes>
       </Router>
     </div>
