@@ -10,6 +10,10 @@ const FacultyHome = function () {
     setToken(localStorage.getItem("facultytoken"));
     // console.log(tok);
   };
+  const createQuiz = () => {
+    console.log("create quiz");
+    navigate("/createquiz");
+  };
   useEffect(() => {
     // getToken();
     window.onpopstate = () => {
@@ -25,6 +29,9 @@ const FacultyHome = function () {
     <div>
       <div>
         <h1>Faculty Home Page</h1>
+        <div>
+          <button onClick={createQuiz}>Create Quiz</button>
+        </div>
         <button
           onClick={() => {
             localStorage.removeItem("facultytoken");

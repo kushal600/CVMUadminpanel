@@ -6,6 +6,7 @@ import ForgetAdminPassword from "./forgetAdminPassword";
 import FacultyHome from "./facultyHome";
 import ForgetFacultyPassword from "./forgetFacultyPassword";
 import RegisterFaculty from "./registerFaculty";
+import CreateQuiz from "./createQuiz";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             path="/forgetfacultypassword"
             element={<ForgetFacultyPassword />}
           ></Route>
+          <Route exact path="/createquiz" element={<CreateQuiz />}></Route>
         </Routes>
       </Router>
     </div>
