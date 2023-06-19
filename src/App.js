@@ -7,6 +7,8 @@ import FacultyHome from "./facultyHome";
 import ForgetFacultyPassword from "./forgetFacultyPassword";
 import RegisterFaculty from "./registerFaculty";
 import CreateQuiz from "./createQuiz";
+import CreateSubject from "./createSubject";
+import VerifyStudent from "./verifyStudent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Login />}></Route>
           <Route exact path="/adminhome" element={<AdminHome />}></Route>
+          <Route exact path="/createsubject" element={<CreateSubject />}></Route>
+          <Route exact path="/verifystudent" element={<VerifyStudent />}></Route>
           <Route
             exact
             path="/forgetadminpassword"

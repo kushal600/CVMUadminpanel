@@ -12,6 +12,7 @@ const RegisterFaculty = () => {
   const navigate = useNavigate();
   const registerNewFaculty = () => {
     let adminToken = localStorage.getItem("admintoken");
+    console.log("inisde register faculty");
     const obj = {
       name: newFacultyName,
       email: newFacultyEmail,
@@ -37,7 +38,7 @@ const RegisterFaculty = () => {
       )
       .then((res) => {
         const data = res;
-
+        console.log(data);
         if (res) {
           console.log("response");
         }

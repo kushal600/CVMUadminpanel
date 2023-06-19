@@ -10,6 +10,11 @@ const AdminHome = function () {
     setToken(localStorage.getItem("admintoken"));
     // console.log(tok);
   };
+
+  const handleCreateSubject = () =>{
+    console.log("create subject");
+    navigate("/createsubject");
+  };
   useEffect(() => {
     // getToken();
     window.onpopstate = () => {
@@ -30,6 +35,12 @@ const AdminHome = function () {
             Register Faculty?<a>click here</a>
           </p>
         </Link>
+      </div>
+      <div>
+        <button onClick={handleCreateSubject}>Create Subject</button>
+      </div>
+      <div>
+        <button onClick={()=>navigate("/verifystudent")}>Verify Student</button>
       </div>
       <div>
         <button
