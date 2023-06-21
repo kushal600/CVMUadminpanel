@@ -35,6 +35,8 @@ const Login = function () {
 
         if (data.data.token) {
           localStorage.setItem("admintoken", data.data.token);
+          localStorage.setItem("adminEmail", adminEmail);
+          // console.log("adminEmail",)
           console.log("logged in");
 
           navigate("/adminhome");

@@ -12,10 +12,12 @@ const VerifyStudent = () =>{
     const[id,setId] = useState([]);
     const [kushal, setKushal] = useState([]);
     const [flag,setFlag] = useState(false);
+    const navigate = useNavigate();
     
     // let kushal;
     let obj;
     let temporary=[];
+    console.log("daata type:  ", typeof temporary);
 
 
     const handleGetStudent =  () =>{
@@ -84,9 +86,12 @@ const VerifyStudent = () =>{
             kushal.map((ele)=>{
                 temporary.push(ele._id);
             })
+            alert("All Students Selected");
+            // prompt("All students Selected");
         }
         else if(name === "allSelect" && checked === false){
             temporary = [];
+            alert("All Students Unselected");
         }
         
         
@@ -117,6 +122,47 @@ const VerifyStudent = () =>{
         
         console.log("result: ",temporary);
     };
+
+    const handleSubmit = () =>{
+        console.log("submit", temporary);
+        console.log(typeof temporary);
+        const adminToken = localStorage.getItem("admintoken");
+        // let arrayId = [];
+        // temporary.map((ele)=>{
+        //     arrayId.push(Number(ele));
+        // });
+        // console.log(arrayId);
+      const obj = {
+        students : temporary
+      };
+      const len = temporary.length;
+      console.log("lenght", len)
+      console.log(obj);
+        axios
+      .post(
+        "http://elbforcvmu-2038773933.ap-south-1.elb.amazonaws.com/api/v1/admin/student/verify",
+        obj,
+        {
+          headers: { Authorization: `Bearer ${adminToken}` },
+        }
+        
+      )
+      .then((res) => {
+        const data = res;
+        // console.log(data.data.res);
+        if (data.data.res == "success") {
+          console.log("success");
+          alert(`${len} students registered`);
+          // navigate("/adminhome");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // issetError(true);
+        // setError(err.response.data.msg);
+        // throw err.response.data.msg;
+      });
+    }
         return(
         <>
         <div>
@@ -131,20 +177,34 @@ const VerifyStudent = () =>{
                         />
                         <label>Select ALL</label>
                     </div>}
+                    <table><td>Select</td><td>Name</td><td>enrollment</td><td>Sem</td><td>Department</td>
                 {flag && 
                 
                 kushal.map(ele => (
                     <>
                     
                     <div>
-                        <input type="checkbox" name={ele._id} onChange={handleChange} 
-                        // checked={ele?.isChecked || false} 
-                        />
-                        <label>{ele.name}</label>
+                        
+                        
                     </div>
+                    <tr><td><input type="checkbox" name={ele._id} onChange={handleChange} 
+                        // checked={ele?.isChecked || false} 
+                        /></td>
+                        <td><label>{ele.name}</label></td>
+                        <td><label>{ele.enrolment}</label></td>
+                        <td><label>{ele.semester}</label></td>
+                        <td><label>{ele.department}</label></td>
+                    
+                        </tr>
                     </>
                 ))}
-            
+           </table>
+           {flag && <button type="button" onClick={handleSubmit}>Verify Students</button>}
+           <div >
+            <button onClick={()=>{navigate("/adminhome")}} type="button">
+            Back TO Home
+            </button>
+            </div>
         </div>
         </>
     );

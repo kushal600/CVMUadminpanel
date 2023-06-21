@@ -10,6 +10,8 @@ const AdminHome = function () {
     setToken(localStorage.getItem("admintoken"));
     // console.log(tok);
   };
+  const adminEmail = localStorage.getItem("adminEmail");
+  console.log(adminEmail);
 
   const handleCreateSubject = () =>{
     console.log("create subject");
@@ -26,6 +28,35 @@ const AdminHome = function () {
       navigate("/");
     }
   }, []);
+
+  const handlePublishResult  = () =>{
+    console.log("Result Published");
+    const adminToken = localStorage.getItem("admintoken");
+    
+    axios
+      .get(
+        "http://elbforcvmu-2038773933.ap-south-1.elb.amazonaws.com/api/v1/admin/result",
+        {
+          headers: { Authorization: `Bearer ${adminToken}` },
+        }
+        
+      )
+      .then((res) => {
+        const data = res;
+        console.log(data);
+        if (data.data.res == "success") {
+          console.log("success");
+          alert("Result Published on the App");
+          // navigate("/adminhome");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // issetError(true);
+        // setError(err.response.data.msg);
+        // throw err.response.data.msg;
+      });
+  }
   return (
     <div>
       <div>
@@ -43,6 +74,9 @@ const AdminHome = function () {
         <button onClick={()=>navigate("/verifystudent")}>Verify Student</button>
       </div>
       <div>
+        <button onClick={handlePublishResult}>Publish Result</button>
+      </div>
+      <div>
         <button
           onClick={() => {
             localStorage.removeItem("admintoken");
@@ -53,6 +87,7 @@ const AdminHome = function () {
           Logout
         </button>
       </div>
+      
     </div>
   );
 };
