@@ -16,8 +16,12 @@ const Form = () => {
       correctOption: "",
     },
   ]);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
   let obj = {};
   let facultyToken = localStorage.getItem("facultytoken");
+  const navigate = useNavigate();
+
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -91,12 +95,14 @@ const Form = () => {
           if (data.data.res == "success") {
             // navigate("/adminhome");
             console.log("success");
+            setIsError(false);
+            setError("");
           }
         })
         .catch((err) => {
           console.log(err);
-          // issetError(true);
-          // setError(err.response.data.msg);
+          setIsError(true);
+          setError(err.response.data.msg);
           // throw err.response.data.msg;
         });
     });
@@ -106,80 +112,166 @@ const Form = () => {
   };
   return (
     <div className="App">
-      <h3></h3>
+      {/* <h3></h3> */}
       {inputList.map((x, i) => {
         return (
-          <div className="box">
-            <input
-              name="question"
-              placeholder="Enter question"
-              value={x.question}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+          <div>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                ❓
+              </span>
+              <input
+                name="question"
+                placeholder="Enter question"
+                class="form-control"
+                aria-label="Enter question"
+                aria-describedby="basic-addon1"
+                value={x.question}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
-            <input
-              className="ml10"
-              name="marks"
-              placeholder="Enter marks"
-              value={x.marks}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                🔢
+              </span>
+              <input
+                className="ml10"
+                name="marks"
+                placeholder="Enter marks"
+                class="form-control"
+                aria-label="Enter marks"
+                aria-describedby="basic-addon1"
+                value={x.marks}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
-            <input
-              className="ml10"
-              name="option1"
-              placeholder="Enter option1"
-              value={x.option1}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                1️⃣
+              </span>
+              <input
+                className="ml10"
+                name="option1"
+                placeholder="Enter option1"
+                class="form-control"
+                aria-label="Enter option1"
+                aria-describedby="basic-addon1"
+                value={x.option1}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
-            <input
-              className="ml10"
-              name="option2"
-              placeholder="Enter option2"
-              value={x.option2}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                2️⃣
+              </span>
+              <input
+                className="ml10"
+                name="option2"
+                placeholder="Enter option2"
+                class="form-control"
+                aria-label="Enter option2"
+                aria-describedby="basic-addon1"
+                value={x.option2}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
-            <input
-              className="ml10"
-              name="option3"
-              placeholder="Enter option3"
-              value={x.option3}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                3️⃣
+              </span>
+              <input
+                className="ml10"
+                name="option3"
+                placeholder="Enter option3"
+                class="form-control"
+                aria-label="Enter option3"
+                aria-describedby="basic-addon1"
+                value={x.option3}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
-            <input
-              className="ml10"
-              name="option4"
-              placeholder="Enter option4"
-              value={x.option4}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                4️⃣
+              </span>
+              <input
+                className="ml10"
+                name="option4"
+                placeholder="Enter option4"
+                class="form-control"
+                aria-label="Enter option4"
+                aria-describedby="basic-addon1"
+                value={x.option4}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
-            <input
-              className="ml10"
-              name="correctOption"
-              placeholder="Enter Correct Option (1,2,3,4)"
-              value={x.correctOption}
-              onChange={(e) => handleInputChange(e, i)}
-            />
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">
+                ✅
+              </span>
+              <input
+                className="ml10"
+                name="correctOption"
+                placeholder="Enter Correct Option (1,2,3,4)"
+                class="form-control"
+                aria-label="Enter Correct Option (1,2,3,4)"
+                aria-describedby="basic-addon1"
+                value={x.correctOption}
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </div>
+
             <br />
             <div className="btn-box">
               {inputList.length !== 1 && (
-                <button className="mr10" onClick={() => handleRemoveClick(i)}>
+                <button
+                  className="mr10"
+                  onClick={() => handleRemoveClick(i)}
+                  class="btn btn-warning mr-3 mb-3 "
+                >
                   Remove
                 </button>
               )}
               {inputList.length - 1 === i && (
-                <button onClick={handleAddClick}>Add</button>
+                <button onClick={handleAddClick} class="btn btn-warning mb-3">
+                  Add
+                </button>
               )}
             </div>
           </div>
         );
       })}
       <div>
-        <button onClick={handleSubmit}>Submit</button>
+        <button
+          onClick={() => navigate("/facultyhome")}
+          class="btn btn-primary mb-3"
+        >
+          Back To Home
+        </button>
+      </div>
+      {isError && (
+        <>
+          <div class="mt-2 col-md-12">
+            <p class="alert alert-danger">{error}</p>
+          </div>
+        </>
+      )}
+      <div>
+        <button onClick={handleSubmit} class="btn btn-primary mb-3">
+          Submit
+        </button>
       </div>
     </div>
   );

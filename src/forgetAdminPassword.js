@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-
+import image from "./CVM.png";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const ForgetAdminPassword = () => {
   const [email, setEmail] = useState("");
   const [Error, setError] = useState("");
+  const [ErrorOTP, setErrorOTP] = useState("");
+  const [passError, setPassError] = useState("");
   const [successMail, setSuccessMail] = useState(false);
   const [OTP, setOTP] = useState("");
   const [flag, setFlag] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isOTPError, setIsOTPError] = useState(false);
+  const [isPassError, setIsPassError] = useState(false);
   const [otpmsg, setOtpmsg] = useState(true);
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
@@ -35,12 +40,14 @@ const ForgetAdminPassword = () => {
           localStorage.setItem("admin_email", email);
 
           setSuccessMail(true);
+          setIsError(false);
         }
       })
       .catch((err) => {
         console.log(err.response.data.msg, "errrrrrrrrrrorrrr");
         setError(err.response.data.msg);
-        throw err;
+        setIsError(true);
+        // throw err;
       });
   };
 
@@ -66,6 +73,8 @@ const ForgetAdminPassword = () => {
           setFlag(true);
           console.log("Otp verified");
           setOtpmsg(true);
+        setIsOTPError(false);
+
         }
         if (data.data.res == "failed") {
           setFlag(false);
@@ -75,6 +84,8 @@ const ForgetAdminPassword = () => {
       })
       .catch((err) => {
         console.log(err);
+        setErrorOTP(err.response.data.msg);
+        setIsOTPError(true);
       });
   };
 
@@ -97,69 +108,113 @@ const ForgetAdminPassword = () => {
         console.log(data.data.res);
         if (data.data.res == "success") {
           localStorage.setItem("adminNewPassword", newPassword);
+        setIsPassError(false);
+
           navigate("/");
         }
       })
       .catch((err) => {
         console.log(err);
+        setPassError(err.response.data.msg);
+        setIsPassError(true);
       });
   };
 
   return (
     <>
+      <img src={image } alt="CVMU Logo" className="imgCVM"/>
+
       <div>
         <div>
           <div>
-            <h1>Change Password</h1>
+            <h1 class="text-primary">Change Password</h1>
+            <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">@</span>
             <input
               type="text"
               placeholder="Enter your Email"
               name="forget-email"
               id="forget-email"
+              class="form-control"
+            aria-label="Enter your Email" 
+            aria-describedby="basic-addon1"
               onChange={handleChange}
               value={email}
               required
             />
-            {Error && <p>{Error}</p>}
+            </div>
+            {/* {Error && <p>{Error}</p>} */}
+            {isError && <>
+            <div class="mt-2 col-md-12">
+
+            <p  class="alert alert-danger">{Error}</p>
+            </div>
+          </>
+            }
             {!successMail && (
-              <button type="button" onClick={handleForgetPassword}>
+              <button type="button" onClick={handleForgetPassword} class="btn btn-warning ">
                 SEND OTP
               </button>
             )}
             {successMail ? (
-              <div>
+              <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">OTP</span>
+
                 <input
                   type="text"
                   placeholder="Enter 4 digit OTP"
                   name="OTP"
                   id="OTP"
+                  class="form-control"
+            aria-label="Enter 4 digit OTP" 
+            aria-describedby="basic-addon1"
                   required
                   onChange={handleOTP}
                   value={OTP}
                 />
+                
                 {!flag && (
-                  <button type="button" onClick={verifyOTP}>
+                  <button type="button" onClick={verifyOTP} class="btn btn-warning ">
                     Verify OTP
                   </button>
                 )}
+                {isOTPError && <>
+            <div class="mt-2 col-md-12">
+
+            <p  class="alert alert-danger">Invalid OTP</p>
+            </div>
+          </>
+            }
               </div>
+              
             ) : (
               <div></div>
             )}
             {flag && (
-              <div>
+              <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">**</span>
                 <input
                   type="text"
                   name="newPassword"
                   id="newPassword"
                   placeholder="Enter your new Password"
+                  class="form-control"
+            aria-label="Enter your new Password" 
+            aria-describedby="basic-addon1"
                   onChange={handleNewPassword}
                   value={newPassword}
                 />
-                <button onClick={changePassword}>Change Password</button>
+                <button onClick={changePassword} class="btn btn-warning ">Change Password</button>
               </div>
             )}
-            {!otpmsg && <div>Wrong Otp</div>}
+            {/* {!otpmsg && <div>Wrong Otp</div>} */}
+            {isPassError && <>
+            <div class="mt-2 col-md-12">
+
+            <p  class="alert alert-danger">{passError}</p>
+            </div>
+          </>
+            }
           </div>
         </div>
       </div>

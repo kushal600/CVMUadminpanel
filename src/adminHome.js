@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import image from "./CVM.png";
 import { Link, useNavigate } from "react-router-dom";
 import { browserHistory } from "react-router-dom";
+import "./App.css"
 const AdminHome = function () {
   const navigate = useNavigate();
   const [token, setToken] = useState("");
@@ -57,38 +59,50 @@ const AdminHome = function () {
         // throw err.response.data.msg;
       });
   }
-  return (
-    <div>
-      <div>
+  return (<>
+      <img src={image } alt="CVMU Logo" className="imgCVM"/>
+
+    <div >
+      {/* <div>
         <h1>Admin Home Page</h1>
         <Link to="/registerfaculty">
-          <p>
-            Register Faculty?<a>click here</a>
-          </p>
+        <p>
+        Register Faculty?<a>click here</a>
+        </p>
         </Link>
+      </div> */}
+      <div class="container">
+      
+      <div class=".box">
+        <button onClick={handleCreateSubject} class="btn btn-primary btn-square-md ">Create Subject</button>
       </div>
-      <div>
-        <button onClick={handleCreateSubject}>Create Subject</button>
+      <div class=".box">
+        <button onClick={()=>navigate("/verifystudent")} class="btn btn-primary btn-square-md">Verify Student</button>
       </div>
-      <div>
-        <button onClick={()=>navigate("/verifystudent")}>Verify Student</button>
+      <div class=".box">
+        <button onClick={handlePublishResult} class="btn btn-primary btn-square-md">Publish Result</button>
       </div>
-      <div>
-        <button onClick={handlePublishResult}>Publish Result</button>
+      <div class=".box">
+        <button onClick={()=>navigate("/registerfaculty")} class="btn btn-primary btn-square-md">Register Faculty</button>
       </div>
-      <div>
+      
+          </div>
+          
+    </div>
+   
         <button
+        class="btn btn-warning btn-lg btn-block"
+        id="margintop"
           onClick={() => {
             localStorage.removeItem("admintoken");
             // localStorage.clear();
             window.location.reload();
           }}
-        >
+          >
           Logout
         </button>
-      </div>
       
-    </div>
+          </>
   );
 };
 

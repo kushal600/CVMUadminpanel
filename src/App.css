@@ -7,6 +7,52 @@
   pointer-events: none;
 }
 
+.App-imgss{
+  height: 40vmin;
+  width: 40vmin;
+}
+.btn-square-md {
+  width: 400px !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  height: 200px !important;
+  text-align: center;
+  padding: 0px;
+  font-size: 25px !important;
+  
+  }
+  #margintop{
+    margin-top: 80px !important;
+  }
+
+  #marginbottom {
+    margin-bottom: 25px;
+  }
+
+  .container{
+    margin: 20px auto;
+    width:400px;
+    height:400px;
+    background-color:#fff;
+    display:grid;
+    grid-template-columns: 650px 650px;
+    grid-row: auto auto;
+    grid-column-gap: 20px;
+    grid-row-gap: 50px;
+    /* margin-left: 800px; */
+  }
+
+    .box{
+      background-color:#333;
+      padding:20px;
+      border-radius:10px;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      /* font-size:40px; */
+      font-family:sans-serif;
+    }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -26,6 +72,23 @@
 
 .App-link {
   color: #61dafb;
+}
+.GeeksForGeeks {
+  background-image: 
+  url(
+"C:\Users\DELL\Desktop\tryingadminpanel\src\CVM.png");
+  background-size: "cover";
+  height: 100vh;
+  margin-top: -70px;
+  /* font-size:50px; */
+  background-repeat:no-repeat; 
+}
+
+.imgCVM{
+  height: 25vh !important;
+  width: 25vh !important;
+  /* margin-bottom: 50px; */
+
 }
 
 @keyframes App-logo-spin {
